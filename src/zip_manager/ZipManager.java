@@ -46,7 +46,7 @@ public class ZipManager {
 	
 	static public void extractFolder(String zipFile , String newPath) throws ZipException, IOException {
 		
-		System.out.println(zipFile);
+		System.out.println(zipFile+", "+newPath);
 		int BUFFER = 2048;
 		File file = new File(zipFile);
 
