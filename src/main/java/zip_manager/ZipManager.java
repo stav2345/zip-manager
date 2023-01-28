@@ -12,7 +12,12 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ZipManager {
+	
+	private static final Logger LOGGER = LogManager.getLogger(ZipManager.class);
 	
 	/**
 	 * Write a file reading it from the zip stream
@@ -40,18 +45,19 @@ public class ZipManager {
 			zipStream.close();
 			
 		} catch (IOException e) {
+			LOGGER.error("There was a problem during unzip");
 			e.printStackTrace();
 		}
 	}
 	
 	static public void extractFolder(String zipFile , String newPath) throws ZipException, IOException {
 		
-		System.out.println(zipFile+", "+newPath);
 		int BUFFER = 2048;
 		File file = new File(zipFile);
 
 		ZipFile zip = new ZipFile(file);
 		// String newPath = zipFile.substring(0, zipFile.length() - 4);
+		LOGGER.info("Reading zip file " + zip + ".New path for extraction will be " + newPath);
 
 		new File(newPath).mkdir();
 		Enumeration<? extends ZipEntry> zipFileEntries = zip.entries();
